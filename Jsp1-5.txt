@@ -1,0 +1,168 @@
+LESSON 01:
+*********************
+JSP(java server pages):creating and maintaining dynamic content webpages
+JSP separates presentation logic(HTML or XML/XSLT) from business logic(Java beans/custom tags)
+JSP is text based document(contains static as well as dynamic content) that can return dynamic content to client
+JSP offers:portability,code reusability,open standards
+-------------------------------------------------------------------------------------------------------
+Downside of servlet:any change in presentation means recompilation and redeployment
+JSP recompiles automatically when changes are made to the source file
+-------------------------------------------------------------------------------------------------------
+Servlets are java code with embedded html
+jsp is html with embedded java code
+-------------------------------------------------------------------------------------------------------
+jsp offers following features over servlet:portability,composition(reusable java components such as java beans andd servlets)
+											processing
+-------------------------------------------------------------------------------------------------------
+in jsp model 1 architecture,request comes from browser directly to a jsp page
+in jsp model 2 arch.req comes from a servlet											
+-------------------------------------------------------------------------------------------------------
+
+LESSON 02:
+*********************
+Request and response cycle:
+Web browser request-jsp request sent to web server-server sends to jsp servlet engine-
+parse jsp file-generate servlet source code-compile servlet source code into class-instantiate servlet-
+html(servlet output)-html sent to browser
+-------------------------------------------------------------------------------------------------------
+JSP lifecycle:
+Page translation
+Page compilation
+Load class
+Create instance
+call jspInit():first time request;if present is called to initialize resources
+call jspService():this method is called for each request
+call jspDestroy():server shuts down/jsp is modified
+
+Lifecycle methods of JSP:
+public void jspInit()
+public void jspDestroy()
+public void _jspService(HttpServletRequest request,HttpServletResponse response) throws ServletException,IOException
+
+.java and .class file have same name as jsp file with postfix _jsp
+
+Servlets resulting from jsp pages use _jspService() and not doGet() or doPost()
+-------------------------------------------------------------------------------------------------------
+Ouput Comment:<!-- --> comment sent to the client in the viewable page source; Expression included in a comment is dynamic
+Hidden Comment:<%-- --%>documents the jsp page but not sent to the client
+-------------------------------------------------------------------------------------------------------
+Jsp page contains tag-centrix syntax(access Bean properties) or scripting-centric synatx to provide functionality
+.jsp files under context root directory
+.class files in web-inf\classes and .jar file in web-inf\lib folder
+-------------------------------------------------------------------------------------------------------
+Lesson 03:
+*********************
+3 forms of jsp scripting elements:
+Expressions<%= %>:evaluated at runtime(implicit objects of expression:request,response,session,out)
+Scriptlets<% %>:inserted into servlet's service method
+Declarations<%! %>:in servlet body;out of existing methods
+					can be used to override jspInit() and jspDestroy()
+-------------------------------------------------------------------------------------------------------
+Jsp usually runs as multiple threads of a single instance
+Any data should go in session object/request object if passing data between different Jsp pages
+-------------------------------------------------------------------------------------------------------
+Implicit objects of jsp:
+1.request:HttpServletRequest
+2.response:HttpServletresponse
+3.out:PrintWriter;buffered version:JspWriter;change using buffer attribute of page directive;refer explicitly in scritplets
+4.session:HttpSession 
+5.application:ServletContext;getServletConfig().getContext()
+6.config:ServletConfig
+7.pageContext:encapsulate use of server specific features
+8.page:synonym for this;placeholder when scripting language could be other than java
+9.exception:applies only to jsp error pages(pages to which processing is forwarded when excp is thrwon from another jsp)
+			page directive isErrorPage must be true
+			exception obj:java.lang.Exception
+-------------------------------------------------------------------------------------------------------
+A semicolon should not be used to end an expression
+-------------------------------------------------------------------------------------------------------
+Lesson 04:
+*************
+Jsp directive:<%@ directive {attribute="value"}*%>
+messages sent to the container
+affects overall servlet structure
+used to set global values
+no output to the client
+scope of the entire file
+-------------------------------------------------------------------------------------------------------
+Types of directive in jsp2.2:
+page
+include
+taglib
+-------------------------------------------------------------------------------------------------------
+Page directive:
+applies to the entire jsp file and any of its static include file(content becomes part of the calling jsp file) together known as translaton unit
+does not apply to dynamic include files
+can be used more than once
+attributes except import can be used once
+
+Attributes of jsp page directive:
+1.language
+2.extends
+3.import:comma separated list of packages to be imported
+		Implicitly imported packages:java.lang.*
+									javax.servlet.*
+									javax.servlet.jsp.*
+									javax.servlet.http.*
+4.info:This attribute simply sets the information of the JSP page which is retrieved later by using getServletInfo() method of Servlet interface.
+5.errorPage="error_url"
+6.isErrorPage="true|false"
+The exception object can only be used in the error page.
+7.contentType:The contentType attribute defines the MIME(Multipurpose Internet Mail Extension) type of the HTTP response.The default value is "text/html;charset=ISO-8859-1".
+8.pageEncoding
+9.isELIgnored="true|false"
+10.buffer:The buffer attribute sets the buffer size in kilobytes to handle output generated by the JSP page.The default size of the buffer is 8Kb.
+-------------------------------------------------------------------------------------------------------
+Include directive:
+includes files at the time jsp is translated into a servlet
+We can only use include to include static files
+-------------------------------------------------------------------------------------------------------
+Lesson 05:
+*****************
+Jsp actions use constructs in xml to control the behaviour of the servlet engine
+Following actions can be performed:
+dynamically insert a file
+reuse javabean components
+forward the user to another page
+generate html for the java plugin
+Available actions:
+jsp:include->includes a file at the time the page is requested(allows to include static/dynamic.so convenient to use when we dont know which type of file)
+			If the file is static,its content is included in the calling jsp file
+			If the file is dynamic,it acts on a request and sends back the result that is inlcuded in the jsp page
+			If the file is dynamic,we can use<jsp:param> clause to pass the name and value of a parameter to the dynamic file;
+			name:case sensitive,value:case-sensitive/expression that is evaluated at request time
+			We cannot always determine from a pathname if file is static/dynamic
+			If the URL is absolute(/) pathname is resolved by web or application server
+			We must include the attribute flush="true" as it is not a default value.false cannot be used
+			
+No change in the behaviour of include directive and action:Tomcat,JBoss,Websphere App server
+
+jsp:forward->forwards a client request to Jsp file,html file or servlet for processing 
+			Target file:html,jsp or servlet as long as it is in the same app context as the forwarding jsp file
+			The lines in the jsp source file after the jsp:forward are not processed
+jsp:useBean->finds/instantiates a JavaBean
+jsp:getProperty->inserts the property of a JavaBean into the output
+jsp:setProperty->sets the property of a JavaBean
+
+jsp:forward and response.sendRedirect
+
+forward is server side redirect;hence no network traffic
+response.sendRedirect is client side redirect
+
+forward:address of the destination page is hidden from the user
+response.sendRedirect:address is visible to the user in the address bar
+
+forward:same context
+redirect:same/different
+
+a redirect is slower than forward;client can disable sendRedirect
+
+Java Beans:
+reusable software component
+simple java class /plain old java object(pojo)
+does not extend any specific base class or implement any interface
+
+
+
+
+

@@ -1,0 +1,439 @@
+LESSON 4:
+************************
+Class:A template for multiple objects with similar features
+Object:Instance of a class
+
+A class may consist the following elements:
+1.fields & methods:primary components.members of class.zero or more.
+2.constructor		:	special methods.
+					same name as the class name.
+					no return value.
+					atleast one constructor.
+					Default const is added by java compiler only when class does not have any const declared
+					used to create and instantiate objects of class,to provide initial values for object
+					Constructors should not call overridables.
+					That is, they should only call methods that are private, static, or final.
+3.initializers	:special blocks in class.initialize members.zero or more
+--------------------------------------------------------------------------------------------------------------
+Packages		:group number of related classes and/or interfaces into a single unit
+				package should be the first statement
+				package is a directory structure mapped on the operating system
+				java.lang package is automatically imported by every java program:System class,String class,Object class,Wrapper class
+				java.net:Socket,URL
+				java.util:utility classes such as Date,collection classes
+Benefits of packages:	prevents name space collision
+						provides greater control over the source code
+						makes it easy to find a class
+--------------------------------------------------------------------------------------------------------------						
+
+Types of Access Modifiers:(applicable for class members)
+						1.public(least restrictive):visible to any class in the java program
+						2.private(most restrictive):only in the same class.
+												cannot be used for classes
+												cannot be used for methods and fields in interface
+						3.protected:every class in a package and different package subclass
+								cannot be used for classes,methods and fields in interface
+						4.default:only same package
+								not used for fields and methods in an interface
+Class can have public/default
+--------------------------------------------------------------------------------------------------------------
+this reference keyword:refer the current object from any method or constructor
+						chaining constructors:This process is used when we want to perform multiple tasks in a single constructor.rather than creating a code for each task in a single constructor we create a separate constructor for each task and make their chain which makes the program more readable.
+						this() keyword is used for constructors in same class	
+--------------------------------------------------------------------------------------------------------------						
+Garbage Collector:lowest priority daemon thread
+					runs in the background when jvm starts
+					Call System.gc() method to hint the jvm to invoke the garbage collector:no guarantee.implementation dependent
+
+finalize() method:perform clean up processing just before object is garbage collected
+					protected method of java.lang.Object class
+					protected void finalize():protected prevents access to finalize() by code defined outside its class
+					override finalize() method from object 
+					Parameters:NA
+					No return value
+					Throwable-Exception raised by this method
+--------------------------------------------------------------------------------------------------------------
+Static modifier:associated with class rather than any object
+1.static variable(class variable):refer the common property of all objects
+								gets memory only once in class area at the time of class loading
+								makes your program memory efficient(saves memory)
+								
+2.static method(class method):can be invoked without creating an instance of that class
+				can access static data member and change the value of it
+3.static initialization block(static constructor):initialize static data member
+			executed before main method at the time of  class loading
+				
+why java main method is static? because object is not required to call static method if it were non-static method, jvm create object first then call main() method that will lead the problem of extra memory allocation.
+				
+restriction:cannot access non static method or variable
+			this and super cannot be used
+We can execute a program without main() method by using static block.But it cannot be done in jdk1.7 and above.Error:main method not found
+--------------------------------------------------------------------------------------------------------------
+Enums:Enum in java is a data type that contains fixed set of constants.
+		The java enum constants are static and final implicitly. 
+		enum may implement many interfaces but cannot extend any class because it internally extends Enum class
+		Permits variables to have only a few predefined values from a given list
+		public/default
+		enums are not string/integer
+		Constructor of enum type is private. If you don't declare private compiler internally creates private constructor.
+		semicolon is optional
+		enum cannot be declared inside a method
+		You can add constructors,instance variables, methods, and something really strange known as a constant specific class body.
+--------------------------------------------------------------------------------------------------------------
+Declare constants as static and final.
+Static,final and private methods are faster.
+
+--------------------------------------------------------------------------------------------------------------
+LESSON 5:
+*******************************
+
+Object class:Every class in Java extends object class i.e reference of object type can refer to an object of any class
+Methods:boolean equals(object)
+		void finalize()
+		class getClass:gets the class of an object at runtime
+		int hashCode():returns the hashcode of the invoking object
+		String toString:returns a string that describes the object
+--------------------------------------------------------------------------------------------------------------		
+Wrapper classes:Wrapper objects are immutable i.e. once a wrapper object has a value assigned to it,it cannot be changed
+				Primitive data types of java are not part of object hierarchy;passed as a value to methods;cannot be directly passed by reference
+				To create obj representation of simple data types:wrapper classes-encapsulate or wrap simple data within classes
+				The abstract class Number defines a superclass that is implemented by all numeric wrapper classes
+
+Integer Wrapper Class:wraps a value of primitive type 'int' into an object
+					Important methods of Integer class:
+					intValue():retrieves primitive int value of Integer object
+					compareTo():compares two Integer objects
+					parseInt():static method to convert String value to int
+					toString():retireves as String value from Integer object
+					isNaN():check whether the given value is number or not
+					Constants of Integer Class:
+					MAX_VALUE:largest value of Integer class range
+					MIN_VALUE:lowest value of Integer Class range
+--------------------------------------------------------------------------------------------------------------					
+Scanner is in java.util package
+Scanner class provides the useDemiliter method for specifying the delimiter
+Scanner objects:Scanner(FileSource)
+				Scanner(InputStreamSource)
+				Scanner(ReadableSource)
+				Scanner(String source)
+Scanner nextXXX method:String nextLine():Advances this scannner past the current line and returns the input that was skipped
+InputMismatchException:if you get the next token using a next method that does not match the type of the token
+--------------------------------------------------------------------------------------------------------------
+System class:used to interact with any of the system resources
+			cannot be instantiated
+			Standard Input,Standard output,Error Output streams
+--------------------------------------------------------------------------------------------------------------			
+String is not an array of characters in java.It is actually a class and a part of core API
+String objects are immutable objects.But the number of operations performed on one particular string creates those many string objects
+StringBuffer,StringBuilder contains string objects that can be modified after they are created
+StringBuilder is not threadsafe(methods are not synchronized);runs faster than StringBuffer
+Important methods of String:length()
+							indexOf()
+							susbstring()
+							trim():removes spaces
+							valueOf():converts data to String
+							isEmpty():added in java 6
+							concat(String s)
+In general,Java does not support operator overloading.Exception to this rule is the + operator
+String comparison:equals() method compares the characters inside a String object
+					== operator compares two object references to see whether they refer to the same instance
+					
+		 class A{  
+		 public static void main(String args[]){  
+		   
+		 String str1="Hello";
+		 String str2=new String(str1);
+		 String str3=str1;
+		 
+		 System.out.println(str1+"equals"+str2+"->"+str1.equals(str2));
+		 System.out.println(str1+"=="+str3+"->"+(str1==str3));
+		 System.out.println(str1+"=="+str2+"->"+(str1==str2));
+		}     
+	}
+	Output:
+	HelloequalsHello->true
+	Hello==Hello->true
+	Hello==Hello->false
+	
+Best practices for string handling:use StringBuffer(compile time) for appending(is string constants then + is faster)
+									String.charAt() is slow(indexOf and a loop 3 times faster)
+									String.intern() to improve performance
+									isEmpty() method to check whether string is empty in a faster way
+String(indexOf) returns the index number where the target string is found;-1 if not found;case sensitive
+intern():variables[i]=new String("hello");
+		variables[i]=variables[i].intern();
+		The calling of intern method ensures that whenever value of that string is changed,instead of creating
+		a new string,reference of old object is obtained and value is changed.performance improvement.
+		pool of unique String objects
+--------------------------------------------------------------------------------------------------------------
+Date and Time API:Added in java 8 under java.time package
+Timezone:ZonedDateTime-date and time fields;precision of nanosecond;time zone;zone offset
+Duration class is used to measure amount of time including nanosecond precision
+Period class is used to measure in terms of days,months or years 
+2 Enums:DayOfWeek,Month
+DateTimeFormatter:format the date and times
+--------------------------------------------------------------------------------------------------------------
+Instant class:generating a timestamp to represent machine value
+				A value generated from Instant class counts time beginning from the first second of January 1,1970(epoch)
+				the static method now of Instant class is used to represent current time
+--------------------------------------------------------------------------------------------------------------
+LocalDate Class Methods(year-month-day in ISO calendar ):
+						now:a static method to return today's date
+						of:creates local date from year,month and date
+						getXXX():used to return various parts of date
+						plusXXX():add the specified factor and returns a localdate
+						minusXXX():subtracts the specified factor and returns a localdate
+						isXXX():performs check on localdate and returns a boolean value
+						withXXX():returns a copy of localdate with the factor set to the given value
+				
+Most of the methods of LocalDateTime are analogous to LocalDate with additional methods like plusHours(),plusMinutes()
+--------------------------------------------------------------------------------------------------------------
+Best practices:fields should be usually private
+				instance variable should not be used directly in a method
+				downward cast is costly
+--------------------------------------------------------------------------------------------------------------
+LESSON 6:
+*******************************
+
+Inheritance:Adv-reusability of code
+			Ideal for classes which has is a relationship
+			All classes in java are by default extensible
+			All java classes that do not explicitly extend a parent class automatically extend the java.lang.Object class
+--------------------------------------------------------------------------------------------------------------
+Super keyword:Refer instance of its direct superclass
+				Two uses:Calling parent class constructor
+						Calling members of parent class(method-when parent and child have same methods i.e.methods are overriden)
+						refer immediate parent class instance variable(if parent and child have same fields)
+--------------------------------------------------------------------------------------------------------------
+instanceOf operator:compares an object to a specified type
+					checks whether an object is an instance of a class,subclass,class that implements an interface
+--------------------------------------------------------------------------------------------------------------
+Polymorphism is implemented in 2 ways:Method overloading(compile time poly)
+										Method overriding(runtime)
+Overloading:same name,parameter declarations are different(return type can be same or different)
+Overridng:same name,same parameters,same return type
+Polymorphism does not work with static methods because they are early bound
+--------------------------------------------------------------------------------------------------------------
+Annotations in JAVA SE:@Override,@SuppressWarnings(instructs the comp to suppress the warnings it usually shows),
+						@Deprecated(marks an old method as depr;method may not be supported in future versions)
+--------------------------------------------------------------------------------------------------------------
+Final modifier:var,methods and classes
+				acts like a constant;once initialized its value cannot be changed
+				method dec as final cannot be overriden
+				A class or a method cannot be final and abstract at the same time
+				final class:cannot be subclassed at all;eg:String,StringBuffer
+--------------------------------------------------------------------------------------------------------------
+LESSON 7:
+****************************
+Abstraction:hiding the implementation details and showing only the functonality to the user
+			focus on what the object does not how it does
+Ways to achieve abstraction:abstract class,interface
+Abstract class:	Provides common behaviour for a set of subclasses
+				Can have abstract as well as non abstract methods
+				cannot be instantiated;cannot create object of abstract class
+				If there is an abstract method in a class,that class must be abstract
+				If you are extending an abstract class,you must either provide the implementation or declare it as abstract
+				abstract class can contain concrete methods;may not contain any abstract methods
+				cannot use abstract for constructors or static methods
+--------------------------------------------------------------------------------------------------------------
+Interfaces(static constants,abstract methods):To achieve abstraction and multiple inheritance
+Interfaces are abstract classes which are left completely unimplemented
+			can extend any number of interfaces;cannot extend classes
+			All constant values defined in an interface are implicitly public,static and final;methods are public and abstract
+			class can implement more than one interface at a time
+			once a class implements an interface,it has to override all the methods in that interface;otherwise a class has to be declared abstract
+--------------------------------------------------------------------------------------------------------------
+In java se 8,static(static keyword-always public) and default methods can be defined in interface.Default methods in interfaces are methods with implementation(default keyword)
+A class which implements the interface need not implement default methods
+Child interface can use the default method of parent interface
+CI can redeclare the default method without default keyword to make it abstract
+CI can override the default method by keeping the same signature as that of PI
+Eg.forEach() is a default method added to Collection API
+--------------------------------------------------------------------------------------------------------------
+Abstract classes are used only when there is a is-a relationship between the classes
+Interfaces can be implemented by classes that are not related to each other
+--------------------------------------------------------------------------------------------------------------
+LESSON 08:
+****************************
+Regular Expression is a mechanisme of text processing
+Regex API is available in java.util.regex package(3 classes):Pattern,Matcher,PatternSyntaxException
+															No public constructors in pattern and matcher
+--------------------------------------------------------------------------------------------------------------
+Pattern class:Methods-compile()(static method):returns a new Pattern object which is a compiled form of regex
+						matches(pattern,inputSequence)(static method):
+						matcher():create new Matcher object for an input for a given pattern 
+--------------------------------------------------------------------------------------------------------------
+LESSON 09:
+****************************
+An exception is a runtime error.
+Java exception handling is similar to that used in C++
+Error occurs-method creates an exception object-hands it to runtime system(throwing an exception)
+5 KEYWORDS:try,catch,finally,throw,throws
+--------------------------------------------------------------------------------------------------------------
+Hierarchy of Exception classes:Throwable->Exception and Error
+								Exception->Runtime Exception(unchecked) and Exception subclasses(checked)
+All exceptions are derived from java.lang.Throwable class
+All classes that inherit from Exception class but not RuntimeException class are considered to be checked exceptions
+
+Checked Exception Eg:IOException,SQLException,ClassNotFoundException
+--------------------------------------------------------------------------------------------------------------
+throws:describes the exceptions which can be raised by a method
+throw:used to throw an exception by the user;raises an exception to the first available handler in the call stack,unwinding the stack all along the way
+--------------------------------------------------------------------------------------------------------------
+Two places in java exception handling where resources can be closed:finally block and try-with-resources
+try-with-resources:can be used to close resources that implement java.lang.AutoCloseable
+--------------------------------------------------------------------------------------------------------------
+Multiple catch blocks:
+If you include multiple catch blocks,order is important.
+you must catch subclasses before their ancestors
+Multi catch blocks:
+Alternatives is not allowed
+you cannot catch child and parent exception in multi catch block(eg.ArithmeticException|Throwable e)
+--------------------------------------------------------------------------------------------------------------
+You can throw runtime errors to:
+to enforce restrictions on the usage of a method
+to disable an inherited method
+to indicate a specific runtime problem
+--------------------------------------------------------------------------------------------------------------
+All of Java's built-in-runtime exceptions have atleast 2 constructors:one with no parameter and one that takes string parameter
+--------------------------------------------------------------------------------------------------------------
+Throws clause can throw multiple exceptions separated by commas
+--------------------------------------------------------------------------------------------------------------
+
+Some methods of Throwable:
+String toString():returns a String object containing the description of the exception;called by println when		
+					outputting a Throwable object
+String getMessage():returns a description of the exception
+void printStackTrace():displays the stack trace
+--------------------------------------------------------------------------------------------------------------
+Exceptions thrown by finalizers are ignored
+Do not use loops for exception handling
+--------------------------------------------------------------------------------------------------------------
+LESSON 11:
+******************
+
+A collection(sometimes called a container) is a group of objects
+
+Collection framework(Collection API) consists of 3 parts:Core Interfaces:determine the common functonality exhibited by collections&data exchange between collections
+										Concrete Implementation:small set of implementation of interfaces providing DS that a program can use eg.LinkedLists,Arrays
+										Algo such as searching and sorting
+										
+The Java Collection technology is similar to Standard Template Library(STL) defined by C++
+--------------------------------------------------------------------------------------------------------------										
+Collection provides interoperability between unrelated APIs:by establishing a common language to pass collections back and forth
+VArious implementation of each interface are inter changeable ,programs can be easily tuned by switching implementation;increases performance
+FOsters software reuse by providing a standard interface for collections and algo to manipulate them
+--------------------------------------------------------------------------------------------------------------
+Interfaces and Implementation:
+Not all collections in the collection framework actually implement the collection interface
+Specifically,none of the map related classes and interfaces extend from Collecton
+--------------------------------------------------------------------------------------------------------------
+Collections is a class with static utility methods
+Collection is an interface with declarations of most methods common to most collections including add(),remove(),
+contains(),size(),iterator()
+--------------------------------------------------------------------------------------------------------------
+Interfaces Set(unique element),List(for position oriented operations,duplicates are allowed,ordered list),Queue(things arranged in the order in which they are to be processed) extends Collection Interfaces
+
+HashSet and LinkedHashSet implements Set Interface
+TreeSet implements SortedSet Interface(sorted order) which extends Set Interface
+
+ArrayList,Vector,LinkedList implements List Interface
+ 
+LinkedList,PriorityQueue implements Queue Interface
+
+Arrays and Collections extends Object
+
+HashTable,LinkedHashMap,HashMap implements Map Interface(no duplicate keys)
+TreeMap implements SortedMap Interface which extends Map Interface
+--------------------------------------------------------------------------------------------------------------
+HashTable:Objects used as keys must implement the hashcode and the equals method
+			synchronized class 
+--------------------------------------------------------------------------------------------------------------			
+			
+Collection Implementation:
+HashSet:unsorted,unordered;uses hashcode of the object being inserted
+LinkedHashSet:same order as that of input
+TreeSet:order is sorting order of elements;order determined by natural order(if they implement Comparable) or by specific Comparator implementation
+		not synchronized
+ArrayList:growable array;fast iteration and fast random access;ordered collection(by index);unsorted
+			now implements RandomAccessInterface-a marker interface(no methods)
+LinkedList:ordered by position of index;elements are doubly linked to one another
+
+HashMap:unsorted,unordered;allows one null key and multiple null values in a collection;keys unique values maybe duplicate
+		uses HashTable to implement Map interface
+LinkedHashMap:maintains insertion order;slower than HashMap for add/del;but faster iteration
+--------------------------------------------------------------------------------------------------------------
+Autoboxing and Auto unboxing:
+If an int is passed where Integer was required,compiler will automatically call Integer constructor
+If an Integer is passed where int was required,compiler IntValue method
+Autoboxing-primitive type to equivalent wrapper type
+Autounboxing-value of a boxed object is extracted from wrapper type
+--------------------------------------------------------------------------------------------------------------
+Iterable is a superinterface of Collection Interface
+Java provides 2 interfaces by which you can access elements of a collection:Enumeration and Iterator
+iterator method:next()-NoSuchElementException
+				remove():removes current element.IllegalStateException if an attempt is made to call remove() that is not preceded
+				by a call to next()
+				Iterator.remove() is the only safe way to modify a collection during iteration
+--------------------------------------------------------------------------------------------------------------				
+Comparator Interface:
+java.util.Comparator Interface allows to sort the elements of an Array or List in the required way
+Methods:int compare(Object o1,Object o2):returns true if the iteration has more elements
+									zero if objects are equal,pos if obj1 is greater than obj2
+									ClassCastException if objects are not compatible for comparison
+									bY overriding compare() you can alter the way the objects are ordered
+		boolean equals Object(obj):whether an object equals the invoking comparator
+									returns  true if the obj and the invoking obj are both Comparator objects and
+									use the same ordering
+									
+Comparable Interface:total ordering on the objects of each class that it implements(natural ordering of class)
+					compareToMethod-natural comparison method
+--------------------------------------------------------------------------------------------------------------					
+Vector CLass:
+implements a growable array of Objects
+same as ArrayList.but vector methods are synchronized for thread safety
+ArrayLists are unsynchronized therefore faster than Vectors
+new java.util.Vector is implemented from the List Interface
+Vectors can hold only objects and not primitive data types
+
+Vector Constructor Summary:
+Vector():Constructs an empty vector
+		Internal data array has size 10
+		Standard capacity increment is zero
+Vector(Collection <? extends E>c):Constructs a vector containing the elements of the specified collection,
+								in the order they are returned by the collection's iterator
+Vector(int initialCapacity):
+Vector(int initialCapacity,int capacityIncrement)
+--------------------------------------------------------------------------------------------------------------
+Vector and HashTable is costly(Use ArrayList instead,use HashMap class instead )
+LinkedList is the worst performer
+Adding objects at the beginning of the collection is slower than at the end
+
+HashMap slightly better than LinkedHashMap(but undefined iteration order)
+HashSet slightly better than LinkedHashSet(but undefined iteration order)
+TreeSet,TreeMap:ordered,sorted,slow
+LinkedList:fast adding at the beginning,fast deletion in the interior via iteration
+--------------------------------------------------------------------------------------------------------------
+Iteration order for implementation:
+HashSet,HashMap:undefined
+LinkedHashSet:insertion order
+LinkedHashMap:insertiond order of keys(default ) or access order
+ArrayList:insertion order
+TreeSet:ascending order according to Comparator/Comparable
+TreeMap:asc order of keys according to Comparator/Comparable
+--------------------------------------------------------------------------------------------------------------
+While being used in a Map or Set,keys of a map and items in a set must be immutable objects
+Collections are not immutable objects
+--------------------------------------------------------------------------------------------------------------
+LESSON 12:
+	
+
+
+
+										
+										
+
+
+
+
+								

@@ -1,0 +1,98 @@
+CHAPTER 1:DECLARATIONS AND ACCESS CONTROL
+*********************************************
+Every object is of a certain type which is defined by class/interface.
+An object will have its own state and access to all of the behaviours defined by its class.
+State(instance variables):Values assigned to an object's instance variables is object's state
+Behaviour(methods)
+
+Identifiers:names of classes,methods,variables
+			Must start with a letter,a currency character($),or a connecting char(_);cannot start with a digit
+			case-sensitive
+Keywords cannot be used as identifiers
+List of keywords:abstract
+				assert(added in 1.4)			long
+				boolean							native
+				break							new
+				byte							package
+				case							private
+				catch							protected
+				class							public
+				char							return
+				const 							switch
+				continue						super
+				default							short
+				do								static
+				double							strictfp
+				else							synchronized
+				extends							this
+				enum(1.5)						throw
+				final							throws
+				finally							transient
+				for								try
+				float							void
+				goto							volatile
+				int								while
+				if
+				interface
+				implements
+				import 
+				instanceOf
+				
+Naming Conventions:Classes(nouns) and interfaces(adjectives) -first letter capital of every word(Camel Case)
+				Methods(verb-noun pairs)-first letter small and later Camel Case
+				Variables-like methods
+				Constants-static and final;uppercase letters;separated by _
+				
+There can be only one public class per source code file.The name of the file must match the name of the public
+class.Files with no public classes can have a name that does not match any of the
+classes in the file.
+
+The javac command is used to invoke Java's compiler.
+javac [options] [source files]  Both are optional parts of the command, and both allow multiple entries separated by spaces
+The java command is used to invoke the Java Virtual Machine (JVM).
+java [options] class [args] options and args optional;multiple values
+
+public static void main(String[] args)
+args—like all arrays—uses a zero-based index.
+
+Legal declarations of main() method:
+public static void main(String[] args)
+static public void main(String[] args)
+public static void main(String... x)
+static public void main(String bang_a_gong[])
+
+main() can be overloaded
+
+import java.util.ArrayList;
+In the Java API there is a package called 'util', and in that package is a class called 'ArrayList'
+
+Its okay to do this:
+ArrayList<String> a = new ArrayList<String>();
+java.util.ArrayList<String> a2 = new java.util.ArrayList<String>();
+
+Static imports:
+save typing while using a class' static members
+out field in the System class is a static member
+you must say import static and not static import
+you can do static import on:static object references,static methods and constants(static and final)
+Before static imports:
+public class TestStatic {
+public static void main(String[] args) {
+System.out.println(Integer.MAX_VALUE);
+System.out.println(Integer.toHexString(42));
+}
+}
+
+After static imports:
+import static java.lang.System.out; // 1
+import static java.lang.Integer.*; // 2
+public class TestStaticImport {
+public static void main(String[] args) {
+out.println(MAX_VALUE); // 3
+out.println(toHexString(42)); // 4
+}
+}
+Both classes produce the same output:
+2147483647
+2a
+

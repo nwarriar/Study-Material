@@ -1,0 +1,167 @@
+CHAPTER 1:DECLARATIONS AND ACCESS CONTROL
+*********************************************
+Every object is of a certain type which is defined by class/interface.
+An object will have its own state and access to all of the behaviours defined by its class.
+State(instance variables):Values assigned to an object's instance variables is object's state
+Behaviour(methods)
+
+Identifiers:names of classes,methods,variables
+			Must start with a letter,a currency character($),or a connecting char(_);cannot start with a digit
+			case-sensitive
+Keywords cannot be used as identifiers
+List of keywords:abstract
+				assert(added in 1.4)			long
+				boolean							native
+				break							new
+				byte							package
+				case							private
+				catch							protected
+				class							public
+				char							return
+				const 							switch
+				continue						super
+				default							short
+				do								static
+				double							strictfp
+				else							synchronized
+				extends							this
+				enum(1.5)						throw
+				final							throws
+				finally							transient
+				for								try
+				float							void
+				goto							volatile
+				int								while
+				if
+				interface
+				implements
+				import 
+				instanceOf
+				
+Naming Conventions:Classes(nouns) and interfaces(adjectives) -first letter capital of every word(Camel Case)
+				Methods(verb-noun pairs)-first letter small and later Camel Case
+				Variables-like methods
+				Constants-static and final;uppercase letters;separated by _
+				
+There can be only one public class per source code file.The name of the file must match the name of the public
+class.Files with no public classes can have a name that does not match any of the
+classes in the file.
+
+The javac command is used to invoke Java's compiler.
+javac [options] [source files]  Both are optional parts of the command, and both allow multiple entries separated by spaces
+The java command is used to invoke the Java Virtual Machine (JVM).
+java [options] class [args] options and args optional;multiple values
+
+public static void main(String[] args)
+args—like all arrays—uses a zero-based index.
+
+Legal declarations of main() method:
+public static void main(String[] args)
+static public void main(String[] args)
+public static void main(String... x)
+static public void main(String bang_a_gong[])
+
+main() can be overloaded
+
+import java.util.ArrayList;
+In the Java API there is a package called 'util', and in that package is a class called 'ArrayList'
+
+Its okay to do this:
+ArrayList<String> a = new ArrayList<String>();
+java.util.ArrayList<String> a2 = new java.util.ArrayList<String>();
+
+Static imports:
+save typing while using a class' static members
+out field in the System class is a static member
+you must say import static and not static import
+you can do static import on:static object references,static methods and constants(static and final)
+Before static imports:
+public class TestStatic {
+public static void main(String[] args) {
+System.out.println(Integer.MAX_VALUE);
+System.out.println(Integer.toHexString(42));
+}
+}
+
+After static imports:
+import static java.lang.System.out; // 1
+import static java.lang.Integer.*; // 2
+public class TestStaticImport {
+public static void main(String[] args) {
+out.println(MAX_VALUE); // 3
+out.println(toHexString(42)); // 4
+}
+}
+Both classes produce the same output:
+2147483647
+2a
+
+import java.*; // Legal, but this WILL NOT search across packages.
+
+Class declarations and modifiers:
+Access modifiers:public,private,protected
+Nonaccess modifiers:including strictfp,final and abstract
+There are four access controls(levels of access) but only three access modifiers
+Class can be declared public/default
+When a class is declared public,it can be accessed by all classes in all packages unless the class is also
+marked as final.
+
+Non access modifiers:
+strictfp:any method code in the class will conform to the IEEE 754 standard rules for floating points
+You are free to use strictfp with final
+But never mark a class as abstract and final together(compiler error);because abstract must be subclassed and final must not be. 
+strictfp is a keyword to modify a class/method;not a variable
+
+final:
+A final class cannot be subclassed;if you do so then compiler error
+Methods of final can never be overriden
+String class is final.
+
+Abstract:
+Abstract classes can never be instantiated.
+Methods marked abstract end in a semicolon rather than curly braces.
+You can put non abstract methods in an abstract class.By putting non abstract methods,you give all concrete 
+subclasses inherited method implementations.They need to implement only methods that define subclass specific behaviour.
+Even if a single method is abstract,the whole class must be declared abstract.
+
+Interfaces:
+Allows you to take radically different classes and give them a common characteristic.
+The implementing class must do:All interface methods must be implemented and must be marked public
+Interface can have only abstract methods
+All interface methods are implicitly public and abstract;methods must not be static;methods cannot be marked final,strictfp or native
+All variables declared in an interface are public,static and final.Interface can have only constants;not instance variables
+Interface can extend only interfaces;extends one or more interfaces;cannot implement another interface/class
+Interfaces are implicitly abstract.public is required else it will be default
+Both these declarations are legal and functionally identical:
+public abstract interface Rollable { }
+public interface Rollable { }
+Any variable defined in an interface is implicitly constant.
+Once the variable has been assigned a value in an interface,the value cannot be changed by another class.
+Compilation error:The final field cannot be assigned
+
+
+
+
+Class Access:
+When we say class A has access to class B it means:
+A can create an instance of B
+A can extend B
+Access certain methods and variables in B depending on access modifiers in B
+
+//When you see codes with complex logic,look for the access modifiers first.(Compilation error)
+
+If class A itself cannot be accessed by class B then no members of class A can be accessed by class B
+
+When you see a method/variable being invoked without a dot operator,it means that method/variable is implicitly
+being accessed by this reference.
+
+When a member is declared private,a subclass cannot inherit it.You can declare a matching method in the superclass
+but it is not overriding a method.A method marked private cannot be overriden.
+
+protected=inheritance
+Subclasses outside the package cannot use a superclass reference to access a protected member.
+For a subclass outside the package,the protected member can be accessed only through inheritance.
+Once the subclass-outside-the-package inherits the protected member,that member becomes private to any code
+outside to the subclass with the exception of subclasses of the subclass.
+ 
+ 

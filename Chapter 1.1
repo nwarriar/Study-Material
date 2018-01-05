@@ -163,5 +163,140 @@ Subclasses outside the package cannot use a superclass reference to access a pro
 For a subclass outside the package,the protected member can be accessed only through inheritance.
 Once the subclass-outside-the-package inherits the protected member,that member becomes private to any code
 outside to the subclass with the exception of subclasses of the subclass.
+
+Access modifiers can never be applied to local variables.
+The only modifier that can be applied to a local variable is final.
+
+Nonaccess Member Modifiers:
+1.final:
+prevents a method from being overriden in a subclass
+method arguments:variable declarations that appear between () in a method declaration
+they are same as local variables;so they can be final
+
+2.abstract
+abstract method declaration ends with a semicolon
+you can have an abstract class with no abstract methods
+the first concrete subclass of an abstract class must implement all abstract methods of superclass
+if the subclass is abstract,it is not required to implement the abstract methods,but it is allowed to
+implement any or all of the superclass abstract methods
+abstract designation means the superclass does not know anything about how the subclasses should behave
+in that method.
+For top level classes,abstract can never be combined with static modifier
+
+public abstract class A {
+abstract void foo();
+}
+class B extends A {
+void foo(int I) { }
+}
+
+Method in class B is an overloaded method.So class B wont compile.
+
+3.synchronized (methods)
+method can be accessed only by one thread at a time
+it can be only applied to methods
+it can be matched with any of the four access control levels(3 access modifier keywords)
+
+4.native(methods)
+method is implemented in platform dependent code often in c
+native is a reserved keyword;only to methods
+native method's body must be a ; like abstract methods(implementation omitted)
+
+5.strictfp(methods/class)
+forces floating points and any floating point operations to adhere to the IEEE 754 standards
+you can predict how your floating point will behave irrespective of the platform jvm is running on
+
+var-args:
+its legal to have other parameters in a method that uses a var-arg
+the var-arg must be the last parameter in the method's signature 
+you can have only one var-arg in a method
+
+Legal:
+void doStuff(int... x) { } // expects from 0 to many ints
+							// as parameters
+void doStuff2(char c, int... x) { } // expects first a char,
+								// then 0 to many ints
+void doStuff3(Animal... animal) { } // 0 to many Animals
+
+Illegal:
+void doStuff4(int x...) { } // bad syntax
+void doStuff5(int... x, char... y) { } // too many var-args
+void doStuff6(String... s, byte b) { } // var-arg must be last
+
+Constructors:
+no return type
+every time a new object;a constructor is invoked
+same name as the class name
+cannot be marked static,final or abstract
+
+Variables in Java:
+Primitive:char,boolean,byte,short,int,long,double,float;once declared it can never change
+Reference:declared of a specific type and that type can never change
+Sequence from small to big is byte,short,int and long;doubles are bigger than floats
+sign bit:0-positive;1-negative
+
+Type	Bits	Bytes	Minimum		Maximum
+byte	8		1		-2^7		2^7-1
+short	16		2		-2^15		2^15-1
+int		32		4		-2^31		2^31-1
+long	64		8		-2^63		2^63-1
+float	32		4		na			na
+double	64		8		na			na
+
+bit depth of a boolean:virtual machine dependent
+The char type contains a single 16 bit Unicode character
+
+Instance variables:
+outside any method;inside class
+initialized only when the class is instantiated
+fields that belong to each unique object
+can use any of the four access levels
+can be marked final,transient
+cannot be marked abstract,synchronized,strictfp,native,static
+
+Local variables(Automatic/Stack/Method):
+Declared and initialized within the method
+Always on the stack and not on the heap
+If the variable is a reference,object will be created on the heap.
+can be marked final
+Unlike instance variables,local variables do not get a default value.So local var must be initialized before
+using
+It is possible to declare a local var with the same name as instance var=shadowing
+
+Arrays:
+Arrays are objects that store multiple variables of the same type or variables that are subclasses of the 
+same type
+Array will always be an object on the heap
+
+int[] key
+int key [] //legal;but less readable
+It is never legal to include the size of the array in your declaration.JVM does not allocate space until
+you instantiate the array object.
+
+Final variables:
+There are no final objects;only final references
+
+Transient variables:
+If you mark a variable as transient,you are telling JVM to ignore this variable when you attempt to
+serialize the object containing it
+
+Volatile variables:Can be applied only to instance variables
+
+Static variables and methods:
+All static members exist before you ever make a instance of a class
+All instances of a class share the same value for any given static variable
+
+Things you can mark as static:
+Methods,variables,a class nested within another class but not within another method,initialization blocks
+
+Things you cannot mark as static:
+Constructors,classes(until nested),interfaces(until nested),method local inner classes,inner class methods
+and instance variables,local variables
+
+Enums:
+the items in the enumerated list are called enums
+Enums can be declared as their own separate class or as a class member but not declared within a method
+ q
+
  
  

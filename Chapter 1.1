@@ -4,10 +4,11 @@ Every object is of a certain type which is defined by class/interface.
 An object will have its own state and access to all of the behaviours defined by its class.
 State(instance variables):Values assigned to an object's instance variables is object's state
 Behaviour(methods)
-
+---------------------------------------------------------------------------------------------------------
 Identifiers:names of classes,methods,variables
 			Must start with a letter,a currency character($),or a connecting char(_);cannot start with a digit
 			case-sensitive
+---------------------------------------------------------------------------------------------------------			
 Keywords cannot be used as identifiers
 List of keywords:abstract
 				assert(added in 1.4)			long
@@ -37,16 +38,16 @@ List of keywords:abstract
 				implements
 				import 
 				instanceOf
-				
+---------------------------------------------------------------------------------------------------------				
 Naming Conventions:Classes(nouns) and interfaces(adjectives) -first letter capital of every word(Camel Case)
 				Methods(verb-noun pairs)-first letter small and later Camel Case
 				Variables-like methods
 				Constants-static and final;uppercase letters;separated by _
-				
+---------------------------------------------------------------------------------------------------------				
 There can be only one public class per source code file.The name of the file must match the name of the public
 class.Files with no public classes can have a name that does not match any of the
 classes in the file.
-
+---------------------------------------------------------------------------------------------------------
 The javac command is used to invoke Java's compiler.
 javac [options] [source files]  Both are optional parts of the command, and both allow multiple entries separated by spaces
 The java command is used to invoke the Java Virtual Machine (JVM).
@@ -54,7 +55,7 @@ java [options] class [args] options and args optional;multiple values
 
 public static void main(String[] args)
 args—like all arrays—uses a zero-based index.
-
+---------------------------------------------------------------------------------------------------------
 Legal declarations of main() method:
 public static void main(String[] args)
 static public void main(String[] args)
@@ -62,14 +63,14 @@ public static void main(String... x)
 static public void main(String bang_a_gong[])
 
 main() can be overloaded
-
+---------------------------------------------------------------------------------------------------------
 import java.util.ArrayList;
 In the Java API there is a package called 'util', and in that package is a class called 'ArrayList'
 
 Its okay to do this:
 ArrayList<String> a = new ArrayList<String>();
 java.util.ArrayList<String> a2 = new java.util.ArrayList<String>();
-
+---------------------------------------------------------------------------------------------------------
 Static imports:
 save typing while using a class' static members
 out field in the System class is a static member
@@ -97,7 +98,7 @@ Both classes produce the same output:
 2a
 
 import java.*; // Legal, but this WILL NOT search across packages.
-
+---------------------------------------------------------------------------------------------------------
 Class declarations and modifiers:
 Access modifiers:public,private,protected
 Nonaccess modifiers:including strictfp,final and abstract
@@ -123,7 +124,7 @@ Methods marked abstract end in a semicolon rather than curly braces.
 You can put non abstract methods in an abstract class.By putting non abstract methods,you give all concrete 
 subclasses inherited method implementations.They need to implement only methods that define subclass specific behaviour.
 Even if a single method is abstract,the whole class must be declared abstract.
-
+---------------------------------------------------------------------------------------------------------
 Interfaces:
 Allows you to take radically different classes and give them a common characteristic.
 The implementing class must do:All interface methods must be implemented and must be marked public
@@ -138,11 +139,17 @@ public interface Rollable { }
 Any variable defined in an interface is implicitly constant.
 Once the variable has been assigned a value in an interface,the value cannot be changed by another class.
 Compilation error:The final field cannot be assigned
+A legal non abstract implementing class must not declare any new checked exceptions for an implementation
+method;it must not declare any exception broader than the exceptions declared in the interface method;
+it may declare runtime exception on any interface method implementation regardless of interface declaration
+A class implementing an interface can itself be abstract;abstract class need not implement all the methods
 
-
-
+A class can implement many interfaces.
+Interface can extend one or more interfaces.
+Interfaces cannot extend a class/implement a class/interface
 
 Class Access:
+---------------------------------------------------------------------------------------------------------
 When we say class A has access to class B it means:
 A can create an instance of B
 A can extend B
@@ -205,7 +212,7 @@ native method's body must be a ; like abstract methods(implementation omitted)
 5.strictfp(methods/class)
 forces floating points and any floating point operations to adhere to the IEEE 754 standards
 you can predict how your floating point will behave irrespective of the platform jvm is running on
-
+---------------------------------------------------------------------------------------------------------
 var-args:
 its legal to have other parameters in a method that uses a var-arg
 the var-arg must be the last parameter in the method's signature 
@@ -222,13 +229,13 @@ Illegal:
 void doStuff4(int x...) { } // bad syntax
 void doStuff5(int... x, char... y) { } // too many var-args
 void doStuff6(String... s, byte b) { } // var-arg must be last
-
+---------------------------------------------------------------------------------------------------------
 Constructors:
 no return type
 every time a new object;a constructor is invoked
 same name as the class name
 cannot be marked static,final or abstract
-
+---------------------------------------------------------------------------------------------------------
 Variables in Java:
 Primitive:char,boolean,byte,short,int,long,double,float;once declared it can never change
 Reference:declared of a specific type and that type can never change
@@ -262,7 +269,7 @@ can be marked final
 Unlike instance variables,local variables do not get a default value.So local var must be initialized before
 using
 It is possible to declare a local var with the same name as instance var=shadowing
-
+---------------------------------------------------------------------------------------------------------
 Arrays:
 Arrays are objects that store multiple variables of the same type or variables that are subclasses of the 
 same type
@@ -272,7 +279,7 @@ int[] key
 int key [] //legal;but less readable
 It is never legal to include the size of the array in your declaration.JVM does not allocate space until
 you instantiate the array object.
-
+---------------------------------------------------------------------------------------------------------
 Final variables:
 There are no final objects;only final references
 
@@ -281,7 +288,7 @@ If you mark a variable as transient,you are telling JVM to ignore this variable 
 serialize the object containing it
 
 Volatile variables:Can be applied only to instance variables
-
+---------------------------------------------------------------------------------------------------------
 Static variables and methods:
 All static members exist before you ever make a instance of a class
 All instances of a class share the same value for any given static variable
@@ -292,11 +299,45 @@ Methods,variables,a class nested within another class but not within another met
 Things you cannot mark as static:
 Constructors,classes(until nested),interfaces(until nested),method local inner classes,inner class methods
 and instance variables,local variables
-
+---------------------------------------------------------------------------------------------------------
 Enums:
 the items in the enumerated list are called enums
 Enums can be declared as their own separate class or as a class member but not declared within a method
- q
+Enum that is not enclosed in a class can be public/default.
+Syntax for accessing enum depends on where the enum was declared.
+Each of the enumerated type is an instance of enum class.
+You can define more than one argument in an enum constructor
+You can overload enum constructor like a normal class constructor
+you can never invoke enum constructor directly
+You can define a constant specific class body in an enum when you need a particular constant to override 
+a method defined in the enum.
+---------------------------------------------------------------------------------------------------------
+Remember:
+Final methods cannot be overriden;final classes cannot be subclassed
+Values of non final variables can change.A reference variable's type can never be changed.
+Arrays can also contain other arrays.
+A file can have only one package statement;but multiple import statements
+Members accessed without the dot operator must belong to the same class.
+private members cannot be inherited.
+local variables cannot have access modifiers.
+final is the only modifier available to local variables.
+local variables do not get default values.
+synchronized modifier applies only to methods and code blocks.
+synchronized methods can have any access control and can also be marked final.
+native modiifer applies only to methods.
+strictfp modifier applies to classes and methods.
+Instance variables can have any access control;can be final or transient;cant be abstract,native,syncronized,strictfp.
+final variables must be initialized before the constructor completes.
+transient and volatile applies only to instance variables.
+It is never legal to include the size of the array in the declaration.
+There is only one copy of static variable/class and all instances share it.
+static methods do not have direct access to non static members.
+enum constructors can never be invoked directly;automatically called when enum is initialized
+---------------------------------------------------------------------------------------------------------
+
+
+
+
 
  
  

@@ -1,0 +1,97 @@
+Inheritance:
+class GameShape {
+public void displayShape() {
+System.out.println("displaying shape");
+}
+// more code
+}
+class PlayerPiece extends GameShape {
+public void movePiece() {
+System.out.println("moving game piece");
+}
+// more code
+}
+public class TestShapes {
+public static void main (String[] args) {
+PlayerPiece shape = new PlayerPiece();
+shape.displayShape();
+shape.movePiece();
+}
+}
+outputs:
+displaying shape
+moving game piece
+----------------------------------------------------------------------------------------------------
+class GameShape {
+public void displayShape() {
+System.out.println("displaying shape");
+}
+// more code
+}
+class PlayerPiece extends GameShape {
+public void movePiece() {
+System.out.println("moving game piece");
+}
+// more code
+}
+class TilePiece extends GameShape {
+public void getAdjacent() {
+System.out.println("getting adjacent tiles");
+}
+// more code
+}
+public class TestShapes {
+public static void main (String[] args) {
+PlayerPiece player = new PlayerPiece();
+TilePiece tile = new TilePiece();
+doShapes(player);
+doShapes(tile);
+}
+public static void doShapes(GameShape shape) {
+shape.displayShape();
+}
+}
+outputs:
+displaying shape
+displaying shape
+And using a reference variable declared as type GameShape—regardless of whether the variable is a method
+parameter, local variable, or instance variable—means that only the methods of GameShape can be invoked on 
+it.
+
+IS-A:
+You express the is-a relationship in Java through keywords extends(class inheritance) and implements(interface
+implementation)
+
+HAS-A:
+class A HAS-A B if code in class A has a reference to an instance of class B.
+
+Overriden methods:
+Ability to define behavour that is specific to a particular subclass type.
+
+Animal b = new Horse // Animal ref,but a Horse object
+
+1.The argument list must exactly match that of the overridden method.
+2.The return type must be same.
+3.The access level cannot be more restrictive than the overriden method.
+4.The access level can be less restrictive than that of the overriden method.
+5.Instance methods can be overriden only if they are inherited by the subclass.
+6.The overriding method can throw any runtime(unchecked) exception regardless of whether the overriden method
+declares the exception.
+7.The overriding method must not throw checked exceptions that are new or broader than those declared by the
+overriden method;subclass of exception is allowed.
+8.You cannot override a method marked final/static.
+9.The overriding method can throw narrower/fewer exceptions.
+
+Invoking a superclass version of an overriden method:super//take advantage of super class and add some code
+You can use super to access a method in a class' superclass,not the superclass of the superclass.
+
+Overloaded methods:
+Same method name in a class with different arguments and optionally a different return type.
+1.Overloaded methods must change the argument list.
+2.Can change the return type.
+3.Can change the access modifier.
+4.Can declare new or broader exceptions.
+5.A method can be overloaded in its class or subclass.Two methods with the same name in different classes
+can be considered to be overloaded if the subclass inherits one version of the method and then declares
+another overloaded version.
+

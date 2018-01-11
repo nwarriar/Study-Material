@@ -94,4 +94,106 @@ Same method name in a class with different arguments and optionally a different 
 5.A method can be overloaded in its class or subclass.Two methods with the same name in different classes
 can be considered to be overloaded if the subclass inherits one version of the method and then declares
 another overloaded version.
+Overloaded methods:
+6.The choice of which overloaded method to call is not dynamically decided at runtime.
+7.The reference type(not the object type) determines which object is invoked.
+
+Which overriden version of the method to call is decided at runtime based on object type.
+Which overloaded version of the method to call is decided at compile time based on reference type of the argument.
+
+main() can be overloaded.
+
+Difference between overloaded and overriden methods:
+			|Overloaded method	|	Overriden method
+Arguments	|Must change.		|	Must not change.
+Return type |Can change.		|		Cant change except for covariant returns.
+Exceptions	|Can change.		|		Can reduce or eliminate.Must not throw new or broader checked excpetions.
+Access		|Can change.		|		Must not make more restrictive;can be less restrictive
+Invocation	|Reference type		|	Object type determines at runtime.
+			|determines at		|
+			|compile time		|
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Casting:
+Upcasting:casting up the inheritance tree to a more general type which works implicitly.
+
+If any superclass in its inheritance tree has already
+provided concrete (that is, nonabstract) method implementations, then regardless of
+whether the superclass declares that it implements the interface, the subclass is
+under no obligation to reimplement (override) those methods.
+Eg:
+One more thing…if Dog implements Pet, then if Beagle extends Dog, but Beagle
+does not declare that it implements Pet, Beagle is still a Pet! Beagle is a Pet simply
+because it extends Dog, and Dog's already taken care of the Pet parts for itself, and for
+all its children. The Beagle class can always override any method it inherits from
+Dog, including methods that Dog implemented to fulfill its interface contract.
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Implementing an Interface:
+To be a legal implementation class,a nonsabstract implementation must do the following:
+1.Provide concrete implementations for all the methods from the declared interface.
+2.Declare no checked excpetions on impl methods other than those declared by the interface method/subclasses of those declared by the interface method
+3.Maintain the signature of the method and maintain the same return type;but it does not have to declare the excpetions declared in the interface method declaration
+4.An implementation class itself can be abstract.
+5.A class can implement more than one interface.
+6.An interface is free to extend multiple interfaces.
+Eg:
+public interface Bounceable extends Moveable { } // ok!
+What does that mean? The first concrete (nonabstract) implementation class of
+Bounceable must implement all the methods of Bounceable, plus all the methods
+of Moveable!
+
+class Yow extends Foo implements Fi { } // OK. A class can do both
+										// (extends must be 1st)
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Legal Return Types:
+Return types on overloaded methods:
+In overloading,you cannot change just the return type.Argument list also needs to be changed.
+In Java 5,you are allowed to change the return type in the overriding method as long as the new return type is a subtype of the declared return type of the 
+overriden(superclass) method.
+
+Returning a value:
+1.An array is a perfectly legal return type.
+
+2.In a method with a primitive return type, you can return any value or variable
+that can be implicitly converted to the declared return type.
+public int foo() {
+char c = 'c';
+return c; // char is compatible with int
+}
+
+3.In a method with a primitive return type, you can return any value or variable
+that can be explicitly cast to the declared return type.
+
+4.You must not return anything from a method with a void return type.
+public void bar() {
+return "this is it"; // Not legal!!
+}
+(Although you can say return;)
+
+5.In a method with an object reference return type, you can return any object
+type that can be implicitly cast to the declared return type.
+public Animal getAnimal() {
+return new Horse(); // Assume Horse extends Animal
+}
+public Object getObject() {
+int[] nums = {1,2,3};
+return nums; // Return an int array, which is still an object
+}
+public interface Chewable { }
+public class Gum implements Chewable { }
+public class TestChewable {
+// Method with an interface return type
+public Chewable getChewable() {
+return new Gum(); // Return interface implementer
+}
+}
+
+--------------------------------------------------------------------------------------------------------------------------------------------------
+Constructors and Initiation:
+You cannot create a new object without invoking not just the constructor of the object's actual class type but also the const of each of its superclasses.
+Typically,constructors are used to initialize instance variable state.
+Constructors are invoked at runtime when you say new on some class type.
+
+Rules for constructors:
+1.Constructors can use any access modifier including private.
+
 

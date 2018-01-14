@@ -196,4 +196,50 @@ Constructors are invoked at runtime when you say new on some class type.
 Rules for constructors:
 1.Constructors can use any access modifier including private.
 
+The following is a method and not a constructor:
+class Horse {
+void Horse() { }
+}
+
+Constructors are never inherited.They cannot be overriden.Constructors can be overloaded.
+The first line in a constructor must be a call to super() or a call to this()
+A constructor can never have both a call to super() and this()
+----------------------------------------------------------------------------------------------------------------
+Initialization Blocks:
+A static initialization block runs once when the class is first loaded.
+An instance initialization block runs once every time a new instance is created.
+Instance init block code runs right after the call to super() in a constructor
+You can have many initialization blocks in a class;the order matters;top down
+----------------------------------------------------------------------------------------------------------------
+Static variables and methods:
+When the method's behaviour has no dependency on the state(instance variable values) of the object.
+Static variables and methods both belong to the class.
+You dont need to initialize a static variable to zero;static variables get the same default values instance variables
+get.
+You cannot access a non static(instance) variable from a static method.
+A static method of a class cannot access a non static (instance) method or variable of its own class.
+Java allows you to use an object reference variable to access a static member.
+Frog f = new Frog();
+int frogs = f.frogCount; // Access static variable
+// FrogCount using f
+Static methods cannot be overriden.
+----------------------------------------------------------------------------------------------------------------
+Remember:
+
+1.A short can be returned when the return type is declared as an int.
+2.HAS-A means an instance of one class has a reference to an instance of another class or instance of same class
+3.The overrding method must have the same return type,except that,as of Java 5,the return type can be a subclass 
+and this is known as a covariant return.
+4.Only inherited methods must be overriden.Private methods are not inherited.
+5.Object type determines which overriden method must be used at runtime.
+  Reference type determines which overloaded method will be used at compile time.
+6.Object reference return types can accept null as a return value.
+7.Methods with an object reference return type can return a subtype.
+  Methods with an interface return type can return any implementer.
+8.Constructors are never inherited;hence never overriden
+9.A constructor can be directly invoked only by another constructor(super() or this())
+10.Static methods cannot be overriden,but they can be redefined.
+
+
+
 

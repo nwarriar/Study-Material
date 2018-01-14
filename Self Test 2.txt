@@ -1,0 +1,146 @@
+3. Given:
+class Clidder {
+private final void flipper() { System.out.println("Clidder"); }
+}
+public class Clidlet extends Clidder {
+public final void flipper() { System.out.println("Clidlet"); }
+public static void main(String [] args) {
+new Clidlet().flipper();
+}
+}
+What is the result?
+A. Clidlet
+
+5. Given:
+class Bird {
+{ System.out.print("b1 "); }
+public Bird() { System.out.print("b2 "); }
+}
+class Raptor extends Bird {
+static { System.out.print("r1 "); }
+public Raptor() { System.out.print("r2 "); }
+{ System.out.print("r3 "); }
+static { System.out.print("r4 "); }
+}
+class Hawk extends Raptor {
+public static void main(String[] args) {
+System.out.print("pre ");
+new Hawk();
+System.out.println("hawk ");
+}
+}
+
+Output:
+D. r1 r4 pre b1 b2 r3 r2 hawk
+
+6. Given the following:
+1. class X { void do1() { } }
+2. class Y extends X { void do2() { } }
+3.
+4. class Chrome {
+5. public static void main(String [] args) {
+6. X x1 = new X();
+7. X x2 = new Y();
+8. Y y1 = new Y();
+9. // insert code here
+10. } }
+
+Output:C. ((Y)x2).do2();
+
+7. Given:
+public class Locomotive {
+Locomotive() { main("hi"); }
+public static void main(String[] args) {
+System.out.print("2 ");
+}
+public static void main(String args) {
+System.out.print("3 " + args);
+}
+}
+
+2 will be included in the output
+
+9. Given:
+3. public class Redwood extends Tree {
+4. public static void main(String[] args) {
+5. new Redwood().go();
+6. }
+7. void go() {
+8. go2(new Tree(), new Redwood());
+9. go2((Redwood) new Tree(), new Redwood());
+10. }
+11. void go2(Tree t1, Redwood r1) {
+12. Redwood r2 = (Redwood)t1;
+13. Tree t2 = (Tree)r1;
+14. }
+15. }
+16. class Tree { }
+
+A. An exception is thrown at runtime;ClassCastException
+
+10. Given:
+3. public class Tenor extends Singer {
+4. public static String sing() { return "fa"; }
+5. public static void main(String[] args) {
+6. Tenor t = new Tenor();
+7. Singer s = new Tenor();
+8. System.out.println(t.sing() + " " + s.sing());
+9. }
+10. }
+11. class Singer { public static String sing() { return "la"; } }
+
+fa la
+
+11. Given:
+3. class Alpha {
+4. static String s = " ";
+5. protected Alpha() { s += "alpha "; }
+6. }
+7. class SubAlpha extends Alpha {
+8. private SubAlpha() { s += "sub "; }
+9. }
+10. public class SubSubAlpha extends Alpha {
+11. private SubSubAlpha() { s += "subsub "; }
+12. public static void main(String[] args) {
+13. new SubSubAlpha();
+14. System.out.println(s);
+15. }
+16. }
+
+alpha subsub
+
+12. Given:
+3. class Building {
+4. Building() { System.out.print("b "); }
+5. Building(String name) {
+6. this(); System.out.print("bn " + name);
+7. }
+8. }
+9. public class House extends Building {
+10. House() { System.out.print("h "); }
+11. House(String name) {
+12. this(); System.out.print("hn " + name);
+13. }
+14. public static void main(String[] args) { new House("x "); }
+15. }
+
+b h hn x
+
+13. Given:
+3. class Mammal {
+4. String name = "furry ";
+5. String makeNoise() { return "generic noise"; }
+6. }
+7. class Zebra extends Mammal {
+8. String name = "stripes ";
+9. String makeNoise() { return "bray"; }
+10. }
+11. public class ZooKeeper {
+12. public static void main(String[] args) { new ZooKeeper().go(); }
+13. void go() {
+14. Mammal m = new Zebra();
+15. System.out.println(m.name + m.makeNoise());
+16. }
+17. }
+
+furry bray is correct. Polymorphism is only for instance methods, not instance variables.

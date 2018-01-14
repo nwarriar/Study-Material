@@ -1,0 +1,155 @@
+CHAPTER 1:
+1. Which are true? (Choose all that apply.)
+A. "X extends Y" is correct if and only if X is a class and Y is an interface.
+B. "X extends Y" is correct if and only if X is an interface and Y is a class.
+C. "X extends Y" is correct if X and Y are either both classes or both interfaces.
+D. "X extends Y" is correct for all combinations of X and Y being classes and/or interfaces.
+
+C is correct.
+
+2.class Rocket {
+private void blastOff() { System.out.print("bang "); }
+}
+public class Shuttle extends Rocket {
+public static void main(String[] args) {
+new Shuttle().go();
+}
+void go() {
+blastOff();
+// Rocket.blastOff(); // line A
+}
+private void blastOff() { System.out.print("sh-bang "); }
+}
+
+As the code stands, the output is sh-bang
+If line A is uncommented, compilation fails. 
+Since Rocket.blastOff() is private, it can't be overridden, and it
+is invisible to class Shuttle.
+
+4. Given:
+1. enum Animals {
+2. DOG("woof"), CAT("meow"), FISH("burble");
+3. String sound;
+4. Animals(String s) { sound = s; }
+5. }
+6. class TestEnum {
+7. static Animals a;
+8. public static void main(String[] args) {
+9. System.out.println(a.DOG.sound + " " + a.FISH.sound);
+10. }
+11. }
+
+woof burble
+
+5. Given two files:
+1. package pkgA;
+2. public class Foo {
+3. int a = 5;
+4. protected int b = 6;
+5. public int c = 7;
+6. }
+3. package pkgB;
+4. import pkgA.*;
+5. public class Baz {
+6. public static void main(String[] args) {
+7. Foo f = new Foo();
+8. System.out.print(" " + f.a);
+9. System.out.print(" " + f.b);
+10. System.out.println(" " + f.c);
+11. }
+12. }
+
+Compilation fails with an error on line 8
+Compilation fails with an error on line 9
+Variable a has default access, so it cannot be accessed from outside the
+package. Variable b has protected access in pkgA.
+
+6. Given:
+1. public class Electronic implements Device
+{ public void doIt() { } }
+2.
+3. abstract class Phone1 extends Electronic { }
+4.
+5. abstract class Phone2 extends Electronic
+{ public void doIt(int x) { } }
+6.
+7. class Phone3 extends Electronic implements Device
+{ public void doStuff() { } }
+8.
+9. interface Device { public void doIt(); }
+
+Compilation succeeds.
+
+7. Given:
+4. class Announce {
+5. public static void main(String[] args) {
+6. for(int __x = 0; __x < 3; __x++) ;
+7. int #lb = 7;
+8. long [] x [5];
+9. Boolean []ba[];
+10. }
+11. }
+
+Compilation fails with an error on line 7
+Compilation fails with an error on line 8
+Variable names cannot begin with a #, and an array declaration can't
+include a size without an instantiation. The rest of the code is valid.
+
+8. Given:
+3. public class TestDays {
+4. public enum Days { MON, TUE, WED };
+5. public static void main(String[] args) {
+6. for(Days d : Days.values() )
+7. ;
+8. Days [] d2 = Days.values();
+9. System.out.println(d2[2]);
+10. }
+11. }
+
+WED is correct. Every enum comes with a static values() method that returns an array of
+the enum's values, in the order in which they are declared in the enum.
+
+9. Given:
+4. public class Frodo extends Hobbit
+5. public static void main(String[] args) {
+6. int myGold = 7;
+7. System.out.println(countGold(myGold, 6));
+8. }
+9. }
+10. class Hobbit {
+11. int countGold(int x, int y) { return x + y; }
+12. }
+
+Compilation fails due to an error on line 7
+The countGold() method cannot be invoked from a static context.
+
+10. Given:
+interface Gadget {
+void doStuff();
+}
+abstract class Electronic {
+void getPower() { System.out.print("plug in "); }
+}
+public class Tablet extends Electronic implements Gadget {
+void doStuff() { System.out.print("show book "); }
+public static void main(String[] args) {
+new Tablet().getPower();
+new Tablet().doStuff();
+}
+}
+
+The class Tablet will NOT compile
+By default, an interface's methods are public so the Tablet.doStuff
+method must be public, too.
+
+11. Given that the Integer class is in the java.lang package, and given:
+1. // insert code here
+2. class StatTest {
+3. public static void main(String[] args) {
+4. System.out.println(Integer.MAX_VALUE);
+5. }
+6. }
+
+import static java.lang.Integer.*;
+import static java.lang.Integer.MAX_VALUE;
+

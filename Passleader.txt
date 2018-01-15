@@ -1,0 +1,49 @@
+Pass Leader:
+Initialize a StringBuilder to capacity 128:
+StringBuilder sb = new StringBuilder(128);
+Mutable
+append(at the end) and insert(at a specified point)
+-----------------------------------------------------------------------------------------------------------------------------------------
+ArrayCopy method:
+public static void arraycopy(Object src,int sourcePosition,Object destination,int destPos,int length)
+Object arguments specify the array to copy from and to copy to
+int arguments specify the start position in the source array,start pos in the dest array,no of elements to copy
+-----------------------------------------------------------------------------------------------------------------------------------------
+Advantages of java exception:
+1.Improves program structure-error handling code is separated from normal program function
+2.Improves program structure because the programmer can choose where to handle exceptions
+3.allows the creation of new exceptions that are tailored to the particular program
+false:
+1.Provides a set of standard excetpions that covers all the possible errors.
+2.Improves the program structure because exceptions must be handled in the method in which they ocurred
+-----------------------------------------------------------------------------------------------------------------------------------------
+equals works well on strings.produces a boolean value.
+compareTo method produces an int
+-----------------------------------------------------------------------------------------------------------------------------------------
+The Java compiler automatically imports three entire packages for each source file:
+the package with no name
+the java.lang package
+the current package
+Packages in the Java language itself begin with java.orjavax
+Java.awt:basic hierarchy of packages for native GUI components 
+Javax.net:networking operations,sockets,DNS lookups,etc.
+-----------------------------------------------------------------------------------------------------------------------------------------
+public class X implements Z{
+Y myY=new Y();
+X myX=myY;
+Z myZ=myX;
+}
+class Y extends X{}
+interface Z{}
+
+Reference type of myZ is Z and object type is Y.
+-----------------------------------------------------------------------------------------------------------------------------------------
+The getClass method returns the runtime class of an object.
+-----------------------------------------------------------------------------------------------------------------------------------------
+Abstract classes:
+Abstract class can have private methods as long as they are not declared abstract.
+An abstract class can have instance variables.
+It is not necessary that an abstract class must have atleast one abstract method.
+It is not necessary that an abstract class must have a constructor with no arguments.
+-----------------------------------------------------------------------------------------------------------------------------------------
+
